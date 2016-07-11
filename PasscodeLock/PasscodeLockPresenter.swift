@@ -25,6 +25,7 @@ public class PasscodeLockPresenter {
     private let passcodeConfiguration: PasscodeLockConfigurationType
     public var isPasscodePresented = false
     public let passcodeLockVC: PasscodeLockViewController
+    public var completionCallback: (() -> ())?
     
     public init(mainWindow window: UIWindow?, configuration: PasscodeLockConfigurationType, viewController: PasscodeLockViewController) {
         
@@ -60,6 +61,7 @@ public class PasscodeLockPresenter {
         
         passcodeLockVC.dismissCompletionCallback = { [weak self] in
             
+            self?.completionCallback?()
             userDismissCompletionCallback?()
             
             self?.dismissPasscodeLock()
